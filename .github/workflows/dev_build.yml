@@ -45,5 +45,6 @@ jobs:
       working-directory: app
     - name: Test with pytest
       run: |
-        poetry run pytest ../tests
+        poetry run pytest
+      working-directory: tests
      

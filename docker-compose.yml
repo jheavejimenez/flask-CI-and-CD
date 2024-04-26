@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=postgre
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "${DB_PORT:-6433}:6432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      - ENV=local
+      - FLASK_ENV=local
+      - FLASK_APP=app:create_app("local")
+      - FLASK_DEBUG=1
+      - DATABASE_URI=postgresql://admin:admin@db:5432/postgre
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./app:/app
+      - ./tests:/tests
+    command: runserver
+
+volumes:
+  db_data:
+    driver: local

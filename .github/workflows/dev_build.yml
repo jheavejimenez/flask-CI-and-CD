@@ -22,9 +22,7 @@ jobs:
         poetry install
       working-directory: app
     - name: Lint with flake8
-      run: |
-        poetry install flake8
-        flake8
+      run: poetry run flake8
       working-directory: app
 
   test:

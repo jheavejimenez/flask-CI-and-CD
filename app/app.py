@@ -1,8 +1,9 @@
 from flask_cors import CORS
 import flask
-import routes
 from flask_sqlalchemy import SQLAlchemy
 import os
+
+from app import routes
 
 
 def add_cors(app: flask.Flask):
